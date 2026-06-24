@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Пассажирам.РФ — сайт загружен");
 
+  // ===== УВЕДОМЛЕНИЯ =====
   window.showNotification = function (message, type = "info") {
     const alertBox = document.createElement("div");
     alertBox.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 4000);
   };
 
+  // ===== ВАЛИДАЦИЯ =====
   window.validateLogin = function (login) {
     const re = /^[A-Za-z0-9]{6,}$/;
     return re.test(login);
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return re.test(email);
   };
 
+  // ===== МОДАЛЬНОЕ ОКНО ДЛЯ ОТЗЫВОВ =====
   const modalHTML = `
     <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
@@ -115,7 +118,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  const defaultOption = document.querySelector('.rating-option[data-value="5"]');
+  const defaultOption = document.querySelector(
+    '.rating-option[data-value="5"]',
+  );
   if (defaultOption) {
     defaultOption.style.opacity = "1";
   }
@@ -132,57 +137,68 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".rating-option").forEach((el) => {
           el.style.opacity = "0.5";
         });
-        const defaultOpt = document.querySelector('.rating-option[data-value="5"]');
+        const defaultOpt = document.querySelector(
+          '.rating-option[data-value="5"]',
+        );
         if (defaultOpt) {
           defaultOpt.style.opacity = "1";
           const radio = defaultOpt.querySelector('input[type="radio"]');
           if (radio) radio.checked = true;
         }
-        const modal = new bootstrap.Modal(document.getElementById("reviewModal"));
+        const modal = new bootstrap.Modal(
+          document.getElementById("reviewModal"),
+        );
         modal.show();
       } else {
         window.showNotification(
           "Отзыв можно оставить только после завершения обучения!",
-          "warning"
+          "warning",
         );
       }
     });
   });
 
-  document.getElementById("submitReviewBtn").addEventListener("click", function () {
-    const reviewText = document.getElementById("reviewText").value.trim();
-    const selectedRating = document.querySelector('#ratingStars input[type="radio"]:checked');
-    const rating = selectedRating ? selectedRating.value : "5";
+  document
+    .getElementById("submitReviewBtn")
+    .addEventListener("click", function () {
+      const reviewText = document.getElementById("reviewText").value.trim();
+      const selectedRating = document.querySelector(
+        '#ratingStars input[type="radio"]:checked',
+      );
+      const rating = selectedRating ? selectedRating.value : "5";
 
-    if (!reviewText) {
-      window.showNotification("Пожалуйста, напишите ваш отзыв!", "warning");
-      return;
-    }
+      if (!reviewText) {
+        window.showNotification("Пожалуйста, напишите ваш отзыв!", "warning");
+        return;
+      }
 
-    if (currentReviewRow) {
-      const reviewCell = currentReviewRow.querySelector("td:nth-child(5)");
-      let starsHtml = '';
-      for (let i = 0; i < parseInt(rating); i++) {
-        starsHtml += `<img src="../../assets/img/star-gold.svg" alt="star" class="star-icon" />`;
-      }
-      for (let i = parseInt(rating); i < 5; i++) {
-        starsHtml += `<img src="../../assets/img/star-empty.svg" alt="empty star" class="star-icon" style="opacity:0.3;" />`;
-      }
-      
-      reviewCell.innerHTML = `
+      if (currentReviewRow) {
+        const reviewCell = currentReviewRow.querySelector("td:nth-child(5)");
+        let starsHtml = "";
+        for (let i = 0; i < parseInt(rating); i++) {
+          starsHtml += `<img src="../../assets/img/star.svg" alt="star" class="star-icon" />`;
+        }
+        for (let i = parseInt(rating); i < 5; i++) {
+          starsHtml += `<img src="../../assets/img/star-empty.svg" alt="empty star" class="star-icon" style="opacity:0.3;" />`;
+        }
+
+        reviewCell.innerHTML = `
         <div class="d-flex flex-column align-items-start">
           <div class="d-flex gap-1">${starsHtml}</div>
           <span class="text-success mt-1">"${reviewText}"</span>
         </div>
       `;
-      window.showNotification("Спасибо за ваш отзыв!", "success");
-      
-      const modal = bootstrap.Modal.getInstance(document.getElementById("reviewModal"));
-      modal.hide();
-      currentReviewRow = null;
-    }
-  });
+        window.showNotification("Спасибо за ваш отзыв!", "success");
 
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("reviewModal"),
+        );
+        modal.hide();
+        currentReviewRow = null;
+      }
+    });
+
+  // ===== СТРАНИЦА ВХОДА =====
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", function (e) {
@@ -218,6 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // ===== СТРАНИЦА РЕГИСТРАЦИИ =====
   const registerForm = document.getElementById("registerForm");
   if (registerForm) {
     registerForm.addEventListener("submit", function (e) {
@@ -255,7 +272,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (valid) {
-        window.showNotification("Регистрация успешна! Теперь войдите.", "success");
+        window.showNotification(
+          "Регистрация успешна! Теперь войдите.",
+          "success",
+        );
         setTimeout(() => {
           window.location.href = "login.html";
         }, 500);
@@ -263,6 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // ===== СТРАНИЦА ЗАЯВКИ =====
   const appForm = document.getElementById("applicationForm");
   if (appForm) {
     appForm.addEventListener("submit", function (e) {
@@ -283,49 +304,154 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  window.changeStatus = function (btn, newStatus) {
-    const row = btn.closest("tr");
-    const statusCell = row.querySelector("td:nth-child(4)");
-    const badge = statusCell.querySelector(".badge");
-    badge.textContent = newStatus;
+  // ===== ПАГИНАЦИЯ ДЛЯ АДМИНКИ =====
 
-    if (newStatus === "Новая") {
-      badge.className = "badge bg-warning";
-    } else if (newStatus === "Идет обучение") {
-      badge.className = "badge bg-primary";
-    } else {
-      badge.className = "badge bg-success";
+  // Все заявки
+  const allApplications = [
+    {
+      id: 1,
+      transport: "Автобус",
+      date: "01.06.2026",
+      status: "Обучение завершено",
+    },
+    { id: 2, transport: "Электробус", date: "05.06.2026", status: "Новая" },
+    {
+      id: 3,
+      transport: "Трамвай",
+      date: "10.06.2026",
+      status: "Идет обучение",
+    },
+    { id: 4, transport: "Автобус", date: "15.06.2026", status: "Новая" },
+    {
+      id: 5,
+      transport: "Электробус",
+      date: "20.06.2026",
+      status: "Обучение завершено",
+    },
+    { id: 6, transport: "Трамвай", date: "25.06.2026", status: "Новая" },
+    {
+      id: 7,
+      transport: "Автобус",
+      date: "30.06.2026",
+      status: "Идет обучение",
+    },
+    { id: 8, transport: "Электробус", date: "05.07.2026", status: "Новая" },
+    {
+      id: 9,
+      transport: "Трамвай",
+      date: "10.07.2026",
+      status: "Обучение завершено",
+    },
+  ];
+
+  let currentPage = 1;
+  const itemsPerPage = 3;
+  let filteredApplications = [...allApplications];
+
+  function getStatusBadge(status) {
+    const colors = {
+      Новая: "bg-warning",
+      "Идет обучение": "bg-primary",
+      "Обучение завершено": "bg-success",
+    };
+    return `<span class="badge ${colors[status] || "bg-secondary"}">${status}</span>`;
+  }
+
+  function renderTable(page) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = filteredApplications.slice(start, end);
+    const tbody = document.getElementById("tableBody");
+
+    if (!tbody) return;
+
+    if (pageItems.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5" class="text-center">Нет заявок</td></tr>`;
+      return;
     }
 
-    window.showNotification('Статус изменён на "' + newStatus + '"', "success");
+    tbody.innerHTML = pageItems
+      .map(
+        (app) => `
+      <tr>
+        <td>${app.id}</td>
+        <td>${app.transport}</td>
+        <td>${app.date}</td>
+        <td>${getStatusBadge(app.status)}</td>
+        <td>
+          <button class="btn btn-sm btn-success" onclick="changeStatusById(${app.id}, 'Идет обучение')">Начать</button>
+          <button class="btn btn-sm btn-secondary" onclick="changeStatusById(${app.id}, 'Обучение завершено')">Завершить</button>
+        </td>
+      </tr>
+    `,
+      )
+      .join("");
+  }
+
+  function updatePagination() {
+    const totalPages = Math.ceil(filteredApplications.length / itemsPerPage);
+
+    const prevPage = document.getElementById("prevPage");
+    const nextPage = document.getElementById("nextPage");
+    if (prevPage) prevPage.classList.toggle("disabled", currentPage <= 1);
+    if (nextPage)
+      nextPage.classList.toggle("disabled", currentPage >= totalPages);
+
+    for (let i = 1; i <= 3; i++) {
+      const pageBtn = document.getElementById(`page${i}`);
+      if (pageBtn) {
+        pageBtn.classList.toggle("active", i === currentPage);
+        pageBtn.style.display = i <= totalPages ? "" : "none";
+      }
+    }
+  }
+
+  window.changePage = function (page) {
+    const totalPages = Math.ceil(filteredApplications.length / itemsPerPage);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderTable(currentPage);
+    updatePagination();
   };
 
-  window.searchApplications = function () {
-    const query = document.getElementById("searchInput").value.toLowerCase();
-    const rows = document.querySelectorAll("#adminTable tbody tr");
+  window.changeStatusById = function (id, newStatus) {
+    const app = filteredApplications.find((a) => a.id === id);
+    if (app) {
+      app.status = newStatus;
+      renderTable(currentPage);
+      window.showNotification(
+        'Статус изменён на "' + newStatus + '"',
+        "success",
+      );
+    }
+  };
 
-    rows.forEach((row) => {
-      const transport = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
-      row.style.display = transport.includes(query) ? "" : "none";
-    });
+  window.changeStatus = function (btn, newStatus) {
+    const row = btn.closest("tr");
+    const id = parseInt(row.querySelector("td:first-child").textContent);
+    window.changeStatusById(id, newStatus);
   };
 
   window.applyFilters = function () {
-    const transport = document.getElementById("filterTransport").value.toLowerCase();
+    const transport = document
+      .getElementById("filterTransport")
+      .value.toLowerCase();
     const status = document.getElementById("filterStatus").value;
-    const rows = document.querySelectorAll("#adminTable tbody tr");
+    const search = document.getElementById("searchInput").value.toLowerCase();
 
-    rows.forEach((row) => {
-      const rowTransport = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
-      const rowStatus = row.querySelector("td:nth-child(4) .badge").textContent;
-      let show = true;
-
-      if (transport && !rowTransport.includes(transport)) show = false;
-      if (status && rowStatus !== status) show = false;
-
-      row.style.display = show ? "" : "none";
+    filteredApplications = allApplications.filter((app) => {
+      let match = true;
+      if (transport && !app.transport.toLowerCase().includes(transport))
+        match = false;
+      if (status && app.status !== status) match = false;
+      if (search && !app.transport.toLowerCase().includes(search))
+        match = false;
+      return match;
     });
 
+    currentPage = 1;
+    renderTable(currentPage);
+    updatePagination();
     window.showNotification("Фильтр применён", "info");
   };
 
@@ -333,40 +459,63 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("filterTransport").value = "";
     document.getElementById("filterStatus").value = "";
     document.getElementById("searchInput").value = "";
-    const rows = document.querySelectorAll("#adminTable tbody tr");
-    rows.forEach((row) => {
-      row.style.display = "";
-    });
+    filteredApplications = [...allApplications];
+    currentPage = 1;
+    renderTable(currentPage);
+    updatePagination();
     window.showNotification("Фильтры сброшены", "info");
   };
 
+  window.searchApplications = function () {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    filteredApplications = allApplications.filter((app) =>
+      app.transport.toLowerCase().includes(search),
+    );
+    currentPage = 1;
+    renderTable(currentPage);
+    updatePagination();
+  };
+
   window.sortTable = function (col) {
+    const keys = ["id", "transport", "date", "status"];
+    const key = keys[col];
+
     const table = document.getElementById("adminTable");
-    const tbody = table.querySelector("tbody");
-    const rows = Array.from(tbody.querySelectorAll("tr"));
+    if (!table) return;
 
     const currentSort = table.dataset.sort || "";
     const direction = currentSort === col ? "desc" : "asc";
     table.dataset.sort = direction === "asc" ? col : "";
 
-    const sorted = rows.sort((a, b) => {
-      const valA = a.querySelectorAll("td")[col].textContent.trim();
-      const valB = b.querySelectorAll("td")[col].textContent.trim();
-      
-      if (col === 0 || col === 2) {
-        const numA = parseInt(valA) || 0;
-        const numB = parseInt(valB) || 0;
+    filteredApplications.sort((a, b) => {
+      let valA = a[key];
+      let valB = b[key];
+
+      if (key === "id") {
+        return direction === "asc" ? valA - valB : valB - valA;
+      }
+      if (key === "date") {
+        const numA = parseInt(valA.split(".")[0]) || 0;
+        const numB = parseInt(valB.split(".")[0]) || 0;
         return direction === "asc" ? numA - numB : numB - numA;
       }
-      
-      return direction === "asc" 
-        ? valA.localeCompare(valB) 
-        : valB.localeCompare(valA);
+
+      return direction === "asc"
+        ? String(valA).localeCompare(String(valB))
+        : String(valB).localeCompare(String(valA));
     });
 
-    tbody.append(...sorted);
+    renderTable(currentPage);
     window.showNotification("Таблица отсортирована", "info");
   };
+
+  // Инициализация админки
+  const adminTable = document.getElementById("adminTable");
+  if (adminTable) {
+    filteredApplications = [...allApplications];
+    renderTable(1);
+    updatePagination();
+  }
 
   console.log("Все скрипты загружены!");
 });
