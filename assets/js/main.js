@@ -198,39 +198,41 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  // ===== СТРАНИЦА ВХОДА =====
+  // ===== СТРАНИЦА ВХОДА (ИСПРАВЛЕНО) =====
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
       const login = document.getElementById("login").value.trim();
       const password = document.getElementById("password").value.trim();
-      let valid = true;
 
-      if (login !== "Admin26" && login !== "user") {
-        const errorEl = document.getElementById("loginError");
-        if (errorEl) errorEl.style.display = "block";
-        valid = false;
-      } else {
-        const errorEl = document.getElementById("loginError");
-        if (errorEl) errorEl.style.display = "none";
+      // Очищаем предыдущие ошибки
+      const loginError = document.getElementById("loginError");
+      const passwordError = document.getElementById("passwordError");
+      if (loginError) loginError.style.display = "none";
+      if (passwordError) passwordError.style.display = "none";
+
+      // 1. Проверяем админа
+      if (login === "Admin26" && password === "Demo20") {
+        window.showNotification("Добро пожаловать, Администратор!", "success");
+        setTimeout(function () {
+          window.location.href = "admin.html";
+        }, 500);
+        return;
       }
 
-      if (password !== "Demo20" && password !== "pass1234") {
-        const errorEl = document.getElementById("passwordError");
-        if (errorEl) errorEl.style.display = "block";
-        valid = false;
-      } else {
-        const errorEl = document.getElementById("passwordError");
-        if (errorEl) errorEl.style.display = "none";
-      }
-
-      if (valid) {
-        window.showNotification("Успешный вход!", "success");
-        setTimeout(() => {
+      // 2. Проверяем пользователя (только логин user, пароль любой)
+      if (login === "user") {
+        window.showNotification("Добро пожаловать!", "success");
+        setTimeout(function () {
           window.location.href = "profile.html";
         }, 500);
+        return;
       }
+
+      // 3. Если ничего не подошло — ошибка
+      if (loginError) loginError.style.display = "block";
+      window.showNotification("Неверный логин или пароль!", "danger");
     });
   }
 
@@ -276,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "Регистрация успешна! Теперь войдите.",
           "success",
         );
-        setTimeout(() => {
+        setTimeout(function () {
           window.location.href = "login.html";
         }, 500);
       }
@@ -298,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       window.showNotification("Заявка отправлена на согласование!", "success");
-      setTimeout(() => {
+      setTimeout(function () {
         window.location.href = "profile.html";
       }, 500);
     });
@@ -306,7 +308,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ===== ПАГИНАЦИЯ ДЛЯ АДМИНКИ =====
 
-  // Все заявки
   const allApplications = [
     {
       id: 1,
@@ -371,8 +372,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     tbody.innerHTML = pageItems
-      .map(
-        (app) => `
+      .map(function (app) {
+        return `
       <tr>
         <td>${app.id}</td>
         <td>${app.transport}</td>
@@ -383,8 +384,8 @@ document.addEventListener("DOMContentLoaded", function () {
           <button class="btn btn-sm btn-secondary" onclick="changeStatusById(${app.id}, 'Обучение завершено')">Завершить</button>
         </td>
       </tr>
-    `,
-      )
+    `;
+      })
       .join("");
   }
 
@@ -398,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function () {
       nextPage.classList.toggle("disabled", currentPage >= totalPages);
 
     for (let i = 1; i <= 3; i++) {
-      const pageBtn = document.getElementById(`page${i}`);
+      const pageBtn = document.getElementById("page" + i);
       if (pageBtn) {
         pageBtn.classList.toggle("active", i === currentPage);
         pageBtn.style.display = i <= totalPages ? "" : "none";
@@ -415,7 +416,13 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.changeStatusById = function (id, newStatus) {
-    const app = filteredApplications.find((a) => a.id === id);
+    var app = null;
+    for (var i = 0; i < filteredApplications.length; i++) {
+      if (filteredApplications[i].id === id) {
+        app = filteredApplications[i];
+        break;
+      }
+    }
     if (app) {
       app.status = newStatus;
       renderTable(currentPage);
@@ -427,27 +434,30 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.changeStatus = function (btn, newStatus) {
-    const row = btn.closest("tr");
-    const id = parseInt(row.querySelector("td:first-child").textContent);
+    var row = btn.closest("tr");
+    var id = parseInt(row.querySelector("td:first-child").textContent);
     window.changeStatusById(id, newStatus);
   };
 
   window.applyFilters = function () {
-    const transport = document
+    var transport = document
       .getElementById("filterTransport")
       .value.toLowerCase();
-    const status = document.getElementById("filterStatus").value;
-    const search = document.getElementById("searchInput").value.toLowerCase();
+    var status = document.getElementById("filterStatus").value;
+    var search = document.getElementById("searchInput").value.toLowerCase();
 
-    filteredApplications = allApplications.filter((app) => {
-      let match = true;
+    var result = [];
+    for (var i = 0; i < allApplications.length; i++) {
+      var app = allApplications[i];
+      var match = true;
       if (transport && !app.transport.toLowerCase().includes(transport))
         match = false;
       if (status && app.status !== status) match = false;
       if (search && !app.transport.toLowerCase().includes(search))
         match = false;
-      return match;
-    });
+      if (match) result.push(app);
+    }
+    filteredApplications = result;
 
     currentPage = 1;
     renderTable(currentPage);
@@ -459,7 +469,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("filterTransport").value = "";
     document.getElementById("filterStatus").value = "";
     document.getElementById("searchInput").value = "";
-    filteredApplications = [...allApplications];
+    filteredApplications = [];
+    for (var i = 0; i < allApplications.length; i++) {
+      filteredApplications.push(allApplications[i]);
+    }
     currentPage = 1;
     renderTable(currentPage);
     updatePagination();
@@ -467,37 +480,50 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.searchApplications = function () {
-    const search = document.getElementById("searchInput").value.toLowerCase();
-    filteredApplications = allApplications.filter((app) =>
-      app.transport.toLowerCase().includes(search),
-    );
+    var search = document.getElementById("searchInput").value.toLowerCase();
+    var result = [];
+    for (var i = 0; i < allApplications.length; i++) {
+      if (allApplications[i].transport.toLowerCase().includes(search)) {
+        result.push(allApplications[i]);
+      }
+    }
+    filteredApplications = result;
     currentPage = 1;
     renderTable(currentPage);
     updatePagination();
   };
 
+  // ===== ИСПРАВЛЕННАЯ СОРТИРОВКА =====
   window.sortTable = function (col) {
-    const keys = ["id", "transport", "date", "status"];
-    const key = keys[col];
+    var keys = ["id", "transport", "date", "status"];
+    var key = keys[col];
 
-    const table = document.getElementById("adminTable");
+    var table = document.getElementById("adminTable");
     if (!table) return;
 
-    const currentSort = table.dataset.sort || "";
-    const direction = currentSort === col ? "desc" : "asc";
+    var currentSort = table.dataset.sort || "";
+    var direction = currentSort === col ? "desc" : "asc";
     table.dataset.sort = direction === "asc" ? col : "";
 
-    filteredApplications.sort((a, b) => {
-      let valA = a[key];
-      let valB = b[key];
+    filteredApplications.sort(function (a, b) {
+      var valA = a[key];
+      var valB = b[key];
 
       if (key === "id") {
         return direction === "asc" ? valA - valB : valB - valA;
       }
+
       if (key === "date") {
-        const numA = parseInt(valA.split(".")[0]) || 0;
-        const numB = parseInt(valB.split(".")[0]) || 0;
+        var numA = parseInt(valA.split(".")[0]) || 0;
+        var numB = parseInt(valB.split(".")[0]) || 0;
         return direction === "asc" ? numA - numB : numB - numA;
+      }
+
+      if (key === "status") {
+        var order = { Новая: 1, "Идет обучение": 2, "Обучение завершено": 3 };
+        return direction === "asc"
+          ? (order[valA] || 0) - (order[valB] || 0)
+          : (order[valB] || 0) - (order[valA] || 0);
       }
 
       return direction === "asc"
@@ -509,10 +535,13 @@ document.addEventListener("DOMContentLoaded", function () {
     window.showNotification("Таблица отсортирована", "info");
   };
 
-  // Инициализация админки
-  const adminTable = document.getElementById("adminTable");
+  // ===== ИНИЦИАЛИЗАЦИЯ АДМИНКИ =====
+  var adminTable = document.getElementById("adminTable");
   if (adminTable) {
-    filteredApplications = [...allApplications];
+    filteredApplications = [];
+    for (var i = 0; i < allApplications.length; i++) {
+      filteredApplications.push(allApplications[i]);
+    }
     renderTable(1);
     updatePagination();
   }

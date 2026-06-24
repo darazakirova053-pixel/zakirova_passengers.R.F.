@@ -8,10 +8,6 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="./assets/style/style.css" />
   </head>
   <body>
@@ -57,6 +53,7 @@
       </div>
     </nav>
 
+    <!-- Баннер -->
     <header class="bg-light py-5 text-center">
       <div class="container">
         <h1>Обучение водителей пассажирских перевозок</h1>
@@ -70,7 +67,9 @@
       </div>
     </header>
 
+    <!-- Виды транспорта -->
     <section class="container my-5">
+      <h2 class="text-center mb-4 fw-bold">Направления обучения</h2>
       <div class="row text-center">
         <div class="col-md-4 mb-4">
           <img
@@ -78,7 +77,8 @@
             class="img-fluid rounded transport-img"
             alt="Трамвай"
           />
-          <h5 class="mt-3">Трамвай</h5>
+          <h5 class="mt-3 fw-bold">Трамвай</h5>
+          <p class="text-muted fst-italic">Самый современный в мире</p>
         </div>
         <div class="col-md-4 mb-4">
           <img
@@ -86,7 +86,8 @@
             class="img-fluid rounded transport-img"
             alt="Электробус"
           />
-          <h5 class="mt-3">Электробус</h5>
+          <h5 class="mt-3 fw-bold">Электробус</h5>
+          <p class="text-muted fst-italic">Без контактной сети</p>
         </div>
         <div class="col-md-4 mb-4">
           <img
@@ -94,11 +95,145 @@
             class="img-fluid rounded transport-img"
             alt="Автобус"
           />
-          <h5 class="mt-3">Автобус</h5>
+          <h5 class="mt-3 fw-bold">Автобус</h5>
+          <p class="text-muted fst-italic">Надёжный и комфортный</p>
         </div>
       </div>
     </section>
 
+    <!-- Преимущества с картинками -->
+    <section class="bg-light py-5">
+      <div class="container">
+        <h2 class="text-center mb-4 fw-bold">Почему выбирают нас</h2>
+        <div class="row g-4">
+                <div class="col-md-4">
+            <div class="card card-hover border-0 shadow-sm h-100 text-center p-4">
+              <img
+                src="./assets/img/transport3.jpg"
+                class="img-fluid rounded advantage-img"
+                alt="Преимущество 2"
+              />
+              <h5 class="fw-bold mt-3">Современная техника</h5>
+              <p class="text-muted mb-0">Обучение на новых моделях автобусов, электробусов и трамваев последнего поколения</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="card card-hover border-0 shadow-sm h-100 text-center p-4"
+            >
+              <img
+                src="./assets/img/transport2.jpg"
+                class="img-fluid rounded advantage-img"
+                alt="Современный автопарк"
+              />
+              <h5 class="fw-bold mt-3">Современный автопарк</h5>
+              <p class="text-muted mb-0">
+                Обучение проходит на новых моделях автобусов, электробусов и
+                трамваев
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="card card-hover border-0 shadow-sm h-100 text-center p-4"
+            >
+              <img
+                src="./assets/img/electrobys2.jpg"
+                class="img-fluid rounded advantage-img"
+                alt="Официальное удостоверение"
+              />
+              <h5 class="fw-bold mt-3">Официальное удостоверение</h5>
+              <p class="text-muted mb-0">
+                По окончании курса вы получаете удостоверение государственного
+                образца
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Отзывы с анимацией -->
+    <section class="container my-5">
+      <h2 class="text-center mb-4 fw-bold">Отзывы наших выпускников</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div
+            class="card border-0 shadow-sm h-100 p-4 review-card review-card-1"
+          >
+            <p class="fw-bold mb-1">Алексей С.</p>
+            <small class="text-muted d-block mb-2">Выпускник, автобус</small>
+            <p class="fst-italic mb-2">
+              "Отличные курсы! Инструкторы всё объясняют понятно и доступно.
+              Сдал экзамен с первого раза!"
+            </p>
+            <div class="mt-2 d-flex gap-1">
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div
+            class="card border-0 shadow-sm h-100 p-4 review-card review-card-2"
+          >
+            <p class="fw-bold mb-1">Екатерина М.</p>
+            <small class="text-muted d-block mb-2">Выпускник, электробус</small>
+            <p class="fst-italic mb-2">
+              "Очень понравилось обучение на электробусе. Современная техника,
+              удобный график занятий."
+            </p>
+            <div class="mt-2 d-flex gap-1">
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div
+            class="card border-0 shadow-sm h-100 p-4 review-card review-card-3"
+          >
+            <p class="fw-bold mb-1">Дмитрий К.</p>
+            <small class="text-muted d-block mb-2">Выпускник, трамвай</small>
+            <p class="fst-italic mb-2">
+              "Рекомендую всем! Профессиональные преподаватели, хорошая база для
+              вождения трамвая."
+            </p>
+            <div class="mt-2 d-flex gap-1">
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+              <img src="./assets/img/star.svg" alt="star" class="review-star" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="contact-section py-5">
+      <div class="container text-center">
+        <h3 class="fw-bold mb-3 text-white">Свяжитесь с нами</h3>
+        <p class="mb-2 text-white">
+          <span class="fw-bold">Адрес:</span> г. Москва, ул. Большая Ордынка, д. 15
+        </p>
+        <p class="mb-2 text-white">
+          <span class="fw-bold">Телефон:</span> +7 (495) 123-45-67
+        </p>
+        <p class="mb-0 text-white">
+          <span class="fw-bold">E-mail:</span> info@passazhiry.ru
+        </p>
+      </div>
+    </section>
+
+    <!-- Футер -->
     <footer class="bg-dark text-white text-center py-4">
       <div class="container">
         <p class="mb-0 footer-text">

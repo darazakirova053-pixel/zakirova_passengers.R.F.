@@ -236,21 +236,111 @@ header .btn-primary {
   object-fit: contain;
 }
 
-/* ===== РЕГИСТРАЦИЯ - АДАПТИВ ===== */
-
+/* ===== РЕГИСТРАЦИЯ ===== */
 .register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 70vh;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .register-card {
   max-width: 500px;
   width: 100%;
   animation: fadeIn 0.5s ease;
+  margin: 0 auto;
 }
 
-/* Адаптивность */
+/* ===== КАРТОЧКИ ПРЕИМУЩЕСТВ ===== */
+.advantage-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: all 0.4s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+.card-hover {
+  transition: all 0.4s ease;
+  border-radius: 16px;
+  cursor: default;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-hover:hover .advantage-img {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== ОТЗЫВЫ ===== */
+.review-card {
+  border-radius: 16px;
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: reviewFadeIn 0.8s ease forwards;
+}
+
+.review-card-1 {
+  animation-delay: 0.1s;
+}
+.review-card-2 {
+  animation-delay: 0.3s;
+}
+.review-card-3 {
+  animation-delay: 0.5s;
+}
+
+@keyframes reviewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.review-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08) !important;
+}
+
+.review-star {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* ===== КОНТАКТЫ ===== */
+.contact-section {
+  background: linear-gradient(135deg, #007bff 0%, #0d47a1 100%);
+  transition: all 0.3s ease;
+}
+
+.contact-section h3 {
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.contact-section p {
+  font-size: 16px;
+  color: #ffffff;
+  opacity: 0.95;
+}
+
+/* ===== АДАПТИВ ===== */
 @media (max-width: 992px) {
   header h1 {
     font-size: 32px;
@@ -307,6 +397,14 @@ header .btn-primary {
   .star-icon {
     width: 16px;
     height: 16px;
+  }
+  .advantage-img {
+    height: 180px;
+    max-width: 400px;
+  }
+  .card-hover {
+    max-width: 400px;
+    margin: 0 auto;
   }
 }
 
@@ -457,37 +555,70 @@ header .btn-primary {
     width: 14px;
     height: 14px;
   }
+  .review-star {
+    width: 16px;
+    height: 16px;
+  }
 
-  /* Регистрация - мобильная адаптация */
+  /* Регистрация */
   .register-container {
     min-height: auto;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding: 70px 10px 40px 10px;
+    align-items: flex-start;
   }
-
   .register-card {
     max-width: 100%;
-    margin: 0 10px;
     padding: 1.5rem !important;
+    margin: 0;
   }
-
   .register-card h2 {
     font-size: 22px;
     margin-bottom: 1.5rem !important;
   }
-
   .register-card .form-label {
     font-size: 14px;
   }
-
   .register-card .form-control {
     font-size: 14px;
     padding: 0.5rem 0.75rem;
   }
-
   .register-card .btn {
     font-size: 15px;
     padding: 0.6rem;
+  }
+
+  /* Преимущества */
+  .advantage-img {
+    height: 160px;
+    max-width: 100%;
+    width: 100%;
+  }
+  .card-hover {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem !important;
+  }
+  .card-hover h5 {
+    font-size: 17px;
+  }
+  .card-hover p {
+    font-size: 14px;
+  }
+
+  /* Отзывы */
+  .review-card {
+    padding: 1.5rem !important;
+  }
+  .review-card p {
+    font-size: 14px;
+  }
+
+  /* Контакты */
+  .contact-section h3 {
+    font-size: 22px;
+  }
+  .contact-section p {
+    font-size: 14px;
   }
 }
 
@@ -529,27 +660,25 @@ header .btn-primary {
     height: 200px !important;
   }
 
-  /* Регистрация - очень маленькие экраны */
   .register-container {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 60px 8px 30px 8px;
   }
-
   .register-card {
     padding: 1rem !important;
   }
-
   .register-card h2 {
     font-size: 20px;
   }
-
   .register-card .form-control {
     font-size: 13px;
     padding: 0.4rem 0.6rem;
   }
-
   .register-card .btn {
     font-size: 14px;
     padding: 0.5rem;
+  }
+
+  .advantage-img {
+    height: 140px;
   }
 }
