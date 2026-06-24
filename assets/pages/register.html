@@ -137,42 +137,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/main.js"></script>
-    <script>
-      document
-        .getElementById("registerForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const login = document.getElementById("regLogin").value.trim();
-          const password = document.getElementById("regPassword").value.trim();
-          const email = document.getElementById("email").value.trim();
-          let valid = true;
-
-          if (!window.validateLogin(login)) {
-            document.getElementById("regLoginError").style.display = "block";
-            valid = false;
-          } else {
-            document.getElementById("regLoginError").style.display = "none";
-          }
-
-          if (!window.validatePassword(password)) {
-            document.getElementById("regPasswordError").style.display = "block";
-            valid = false;
-          } else {
-            document.getElementById("regPasswordError").style.display = "none";
-          }
-
-          if (!window.validateEmail(email)) {
-            document.getElementById("regEmailError").style.display = "block";
-            valid = false;
-          } else {
-            document.getElementById("regEmailError").style.display = "none";
-          }
-
-          if (valid) {
-            alert("Регистрация успешна! Теперь войдите.");
-            window.location.href = "login.html";
-          }
-        });
-    </script>
   </body>
 </html>
