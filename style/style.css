@@ -44,18 +44,12 @@ footer {
 .btn-primary {
   background-color: #007bff;
   border-color: #007bff;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
   background-color: #0d47a1;
   border-color: #0d47a1;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
 }
 
 .navbar-brand {
@@ -90,14 +84,13 @@ footer {
 .navbar-nav .nav-link {
   font-size: 16px;
   padding: 0.6rem 1.2rem;
-  transition: all 0.3s ease;
+  transition: opacity 0.2s ease;
   border-radius: 6px;
 }
 
 .navbar-nav .nav-link:hover {
   opacity: 0.8;
   background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
 }
 
 .navbar-nav .nav-link.active {
@@ -108,7 +101,6 @@ footer {
 header.bg-light {
   padding: 4rem 0;
   border-bottom: 3px solid #007bff;
-  animation: fadeIn 0.8s ease;
 }
 
 header h1 {
@@ -123,7 +115,6 @@ header .lead {
 header .btn-primary {
   font-weight: 700;
   padding: 0.75rem 2.5rem;
-  animation: pulse 2s infinite;
 }
 
 .transport-img {
@@ -133,72 +124,16 @@ header .btn-primary {
   object-fit: cover;
   border: 2px solid #dee2e6;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .transport-img:hover {
-  transform: scale(1.03) rotate(1deg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
 }
 
 .transport-img + h5 {
   font-weight: 700;
   font-size: 18px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 15px rgba(0, 123, 255, 0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.table tbody tr {
-  transition: all 0.3s ease;
-  animation: slideIn 0.5s ease;
-}
-
-.table tbody tr:hover {
-  background-color: #f0f8ff;
-  transform: scale(1.01);
-}
-
-.modal-content {
-  animation: fadeIn 0.3s ease;
-}
-
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .rating-option {
@@ -208,7 +143,7 @@ header .btn-primary {
   border: 2px solid transparent;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease;
   opacity: 0.5;
   background: #f8f9fa;
 }
@@ -216,7 +151,6 @@ header .btn-primary {
 .rating-option:hover {
   opacity: 0.8;
   border-color: #007bff;
-  background: #e3f2fd;
 }
 
 .rating-option[style*="opacity: 1"] {
@@ -236,6 +170,7 @@ header .btn-primary {
   object-fit: contain;
 }
 
+/* Адаптивность */
 @media (max-width: 992px) {
   header h1 {
     font-size: 32px;
@@ -303,9 +238,6 @@ header .btn-primary {
 
   header h1 {
     font-size: 22px;
-  }
-  header .display-4 {
-    font-size: 1.8rem;
   }
   h2 {
     font-size: 20px;
@@ -483,31 +415,25 @@ header .btn-primary {
   }
 }
 
-/* ===== МОДУЛЬ 3: МИКРОАНИМАЦИИ ===== */
+/* ===== РЕГИСТРАЦИЯ - АДАПТИВ ===== */
 
-/* Плавное появление элементов при загрузке */
-.fade-in {
-  animation: fadeInUp 0.6s ease forwards;
-  opacity: 0;
-}
-
-.fade-in-delay-1 {
-  animation-delay: 0.1s;
-}
-.fade-in-delay-2 {
-  animation-delay: 0.2s;
-}
-.fade-in-delay-3 {
-  animation-delay: 0.3s;
-}
-.fade-in-delay-4 {
-  animation-delay: 0.4s;
+.register-container {
+  min-height: 70vh;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
+.register-card {
+  max-width: 500px;
+  width: 100%;
+  animation: fadeInUp 0.5s ease;
+}
+
+/* Лёгкие анимации */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -515,244 +441,119 @@ header .btn-primary {
   }
 }
 
-/* Анимация для кнопок при наведении */
-.btn {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
+/* Анимация для карточек */
+.card {
   transition:
-    width 0.6s,
-    height 0.6s;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.btn:active::after {
-  width: 300px;
-  height: 300px;
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-
-.pulse-animation {
-  animation: pulseSoft 2s infinite;
+/* Анимация для кнопок */
+.btn {
+  transition: all 0.2s ease;
 }
 
-@keyframes pulseSoft {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
+.btn:hover {
+  transform: scale(1.02);
 }
 
-
-.card-animate {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+.btn:active {
+  transform: scale(0.97);
 }
 
-.card-animate:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
-
+/* Анимация для инпутов */
 .form-control,
 .form-select {
-  transition: all 0.3s ease;
-  border: 2px solid #dee2e6;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .form-control:focus,
 .form-select:focus {
   border-color: #007bff;
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
-  transform: scale(1.01);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.12);
 }
 
-
+/* Анимация для ссылок */
 a {
-  transition: all 0.3s ease;
-  position: relative;
+  transition: color 0.2s ease;
 }
 
-a:not(.btn):not(.navbar-brand):not(.nav-link)::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #007bff;
-  transition: width 0.3s ease;
-}
-
-a:not(.btn):not(.navbar-brand):not(.nav-link):hover::after {
-  width: 100%;
-}
-
-
-.alert {
-  animation: slideDown 0.5s ease forwards;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.table-hover tbody tr {
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.table-hover tbody tr:hover {
-  background-color: #e3f2fd !important;
-  transform: scale(1.005);
-}
-
-.modal.fade .modal-dialog {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
-}
-
-.modal.fade:not(.show) .modal-dialog {
-  transform: scale(0.9) translateY(-20px);
-  opacity: 0;
-}
-
-.modal.show .modal-dialog {
-  transform: scale(1) translateY(0);
-  opacity: 1;
-}
-
+/* Анимация для бейджей */
 .badge {
-  transition: all 0.4s ease;
+  transition: transform 0.2s ease;
 }
 
 .badge:hover {
   transform: scale(1.05);
 }
 
-.navbar-nav .nav-link {
-  position: relative;
-  transition: all 0.3s ease;
+/* Анимация для строк таблицы */
+.table tbody tr {
+  transition: background-color 0.2s ease;
 }
 
-.navbar-nav .nav-link::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: #fff;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.navbar-nav .nav-link:hover::before {
-  width: 60%;
-}
-
-.navbar-nav .nav-link.active::before {
-  width: 60%;
-}
-
-
-.carousel-item img {
-  transition: transform 0.5s ease;
-}
-
-.carousel-item.active img {
-  animation: zoomIn 0.6s ease;
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(1.05);
-    opacity: 0.7;
+/* Адаптив для регистрации */
+@media (max-width: 576px) {
+  .register-container {
+    min-height: auto;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
-  to {
-    transform: scale(1);
-    opacity: 1;
+
+  .register-card {
+    max-width: 100%;
+    margin: 0 10px;
+    padding: 1.5rem !important;
+  }
+
+  .register-card h2 {
+    font-size: 22px;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .register-card .form-label {
+    font-size: 14px;
+  }
+
+  .register-card .form-control {
+    font-size: 14px;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .register-card .btn {
+    font-size: 15px;
+    padding: 0.6rem;
   }
 }
 
-.pagination .page-link {
-  transition: all 0.3s ease;
-}
-
-.pagination .page-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-
-body {
-  animation: pageLoad 0.5s ease;
-}
-
-@keyframes pageLoad {
-  from {
-    opacity: 0;
+@media (max-width: 390px) {
+  .register-container {
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
-  to {
-    opacity: 1;
+
+  .register-card {
+    padding: 1rem !important;
   }
-}
 
-.rating-option {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.rating-option:hover .star-img {
-  transform: scale(1.15) rotate(-5deg);
-}
-
-.rating-option .star-img {
-  transition: all 0.3s ease;
-}
-
-.rating-option[style*="opacity: 1"] .star-img {
-  animation: starPop 0.4s ease;
-}
-
-@keyframes starPop {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
+  .register-card h2 {
+    font-size: 20px;
   }
-  50% {
-    transform: scale(1.3);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 
-footer {
-  transition: all 0.3s ease;
-}
+  .register-card .form-control {
+    font-size: 13px;
+    padding: 0.4rem 0.6rem;
+  }
 
-footer:hover {
-  opacity: 0.95;
+  .register-card .btn {
+    font-size: 14px;
+    padding: 0.5rem;
+  }
 }
