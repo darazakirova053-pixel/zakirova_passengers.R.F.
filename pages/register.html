@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Регистрация — Пассажирам.РФ</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style/style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="../../index.html">
+          <img src="../../assets/img/logo.svg" alt="логотип" />
+          Пассажирам.РФ
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Вход</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="register.html">Регистрация</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Личный кабинет</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="application.html">Заявка</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin.html">Админ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="container d-flex justify-content-center align-items-center"
+      style="min-height: 70vh"
+    >
+      <div class="card p-4 shadow" style="max-width: 500px; width: 100%">
+        <h2 class="text-center mb-4">Регистрация</h2>
+        <form id="registerForm">
+          <div class="mb-3">
+            <label for="regLogin" class="form-label"
+              >Логин (лат., цифры, мин 6)</label
+            >
+            <input type="text" class="form-control" id="regLogin" required />
+            <div
+              id="regLoginError"
+              class="text-danger small mt-1"
+              style="display: none"
+            >
+              Логин должен быть от 6 символов, только латиница и цифры
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="regPassword" class="form-label"
+              >Пароль (мин 8 символов)</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="regPassword"
+              required
+            />
+            <div
+              id="regPasswordError"
+              class="text-danger small mt-1"
+              style="display: none"
+            >
+              Пароль должен быть не менее 8 символов
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="fullName" class="form-label">ФИО</label>
+            <input type="text" class="form-control" id="fullName" required />
+          </div>
+          <div class="mb-3">
+            <label for="birthDate" class="form-label">Дата рождения</label>
+            <input type="date" class="form-control" id="birthDate" required />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Телефон</label>
+            <input type="tel" class="form-control" id="phone" required />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="email" required />
+            <div
+              id="regEmailError"
+              class="text-danger small mt-1"
+              style="display: none"
+            >
+              Введите корректный email
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">
+            Зарегистрироваться
+          </button>
+        </form>
+        <p class="text-center mt-3">
+          <a href="login.html" class="text-decoration-none"
+            >Уже есть аккаунт? Войти</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4">
+      <div class="container">
+        <p class="mb-0 footer-text">
+          &copy; 2026 Пассажирам.РФ. Все права защищены.
+        </p>
+        <p class="mb-0 footer-small">
+          г. Москва, ул. Большая Ордынка, д. 15 | Телефон: +7 (495) 123-45-67
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>
